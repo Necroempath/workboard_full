@@ -1,0 +1,48 @@
+services:
+  api:
+    image: sahib64/workboard-api:latest
+    container_name: workboard-api
+    ports:
+      - "5000:5000"
+    environment:
+      ASPNETCORE_URLS: http://+:5000
+
+      ConnectionStrings__Default: Server=mssql;Database=WorkBoardDb;User Id=sa;Password=StrongPassword123!;TrustServerCertificate=True;
+
+      JwtSettings__Secret: 61934ce24d724921897325e40823e43e
+
+      EmailSettings__Password: gwapjlthfjqfclkz
+
+    depends_on:
+      - mssql
+    networks:
+      - workboard-net
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: workboard-db
+    environment:
+      SA_PASSWORD: StrongPassword123!
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - workboard-net
+    
+  frontend:
+    image: sahib64/workboard-frontend:latest
+    container_name: workboard-ui
+    ports:
+      - "8080:80"
+    depends_on:
+    - api
+    networks:
+      - workboard-net
+        
+volumes:
+  mssql_data:
+
+networks:
+  workboard-net:

@@ -1,0 +1,6 @@
+@WorkBoard_HostAddress = http://localhost:5081
+
+GET {{WorkBoard_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
