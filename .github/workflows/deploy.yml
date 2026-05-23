@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Login to Docker Hub
-        run: echo "Nemesis#778" | docker login -u "sahib64" --password-stdin
+        run: echo "wizard#778" | docker login -u "sahib64" --password-stdin
 
       - name: Build backend image
         run: |
